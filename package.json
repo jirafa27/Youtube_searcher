@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "node": "^17.4.0",
+    "request": "^2.88.2",
+    "url": "^0.11.0",
+    "youtube-captions-scraper": "^2.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

@@ -1,0 +1,55 @@
+const express = require('express');
+const path = require('path')
+const port = 3000;
+const app = express();
+
+
+app.use(express.static(path.resolve(__dirname, 'client')))
+app.use(express.json())
+ans=[]
+app.get("/", function(request, response) {
+    response.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+    ans=[]
+});
+
+const getSubtitles = require('youtube-captions-scraper').getSubtitles;
+var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({ extended: true })
+var url;
+var id;
+
+
+app.post("/", urlencodedParser, function (request, response)
+{
+    ans=[]
+    try {
+        if (!request.body) return response.sendStatus(400);
+        url = new URL(request.body.href)
+        id = url.searchParams.get('v')
+        getSubtitles({videoID: id, lang: 'ru'}).then(function (captions) {
+                for (let i = 0; i < captions.length; i++) {
+
+                    if (captions[i]['text'].includes(request.body.word)) {
+
+                        ans.push({
+                            'link': `https://youtu.be/${id}?t=${captions[i].start}s`,
+                            'time': captions[i].start,
+                            'text': captions[i].text
+                        })
+                    }
+
+                }
+                response.status(201).json(ans)
+
+            }
+        )
+    }
+    catch (Error)
+    {
+        ans.push({'link': 'пусто', 'time': 0, 'text': ''})
+        response.status(201).json(ans)
+    }
+
+});
+app.listen(port, ()=>console.log('Server has been started on port '+port))
+
