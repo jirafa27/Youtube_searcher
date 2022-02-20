@@ -46,7 +46,6 @@ app.post("/", urlencodedParser, function (request, response)
     }
     catch (Error)
     {
-        ans.push({'link': 'пусто', 'time': 0, 'text': ''})
         response.status(201).json(ans)
     }
 
