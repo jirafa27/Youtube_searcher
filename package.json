@@ -13,5 +13,24 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "name": "youtube_searcher",
+  "version": "1.0.0",
+  "description": "youtube captions searcher",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jirafa27/Youtube_searcher.git"
+  },
+  "keywords": [
+    "youtube",
+    "caption",
+    "search"
+  ],
+  "author": "jirafa27",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jirafa27/Youtube_searcher/issues"
+  },
+  "homepage": "https://github.com/jirafa27/Youtube_searcher#readme"
 }

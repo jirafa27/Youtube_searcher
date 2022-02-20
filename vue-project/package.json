@@ -1,0 +1,24 @@
+{
+  "name": "youtube_scraper",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview --port 5050",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "vue": "^3.2.29",
+    "youtube-captions-scraper": "^2.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.1.0",
+    "nodemon": "^2.0.15",
+    "vite": "^2.7.13"
+  },
+  "description": "This template should help get you started developing with Vue 3 in Vite.",
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC"
+}

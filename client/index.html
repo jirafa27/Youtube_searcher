@@ -30,7 +30,6 @@
     <div v-if="loading">
         <loader />
     </div>
-    <div v-else-if="links.length">
         <div class="card mb-3" v-for="d in links">
             <div class="card-body">
                 <h5 class="card-title">{{d.link}}</h5>
@@ -40,7 +39,6 @@
             </div>
         </div>
      </div>
-     <h5 v-else>Ничего не найдено=(</h5>
 
 </div>
 
