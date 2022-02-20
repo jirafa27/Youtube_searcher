@@ -25,11 +25,18 @@ app.post("/", urlencodedParser, function (request, response)
     try {
         if (!request.body) return response.sendStatus(400);
         url = new URL(request.body.href)
-        id = url.searchParams.get('v')
+        if (request.body.href.includes('v')) {
+
+            id = url.searchParams.get('v')
+        }
+        else if (request.body.href.includes('.be'))
+        {
+                id = request.body.href.split('/')[request.body.href.split('/').length-1]
+        }
         getSubtitles({videoID: id, lang: 'ru'}).then(function (captions) {
                 for (let i = 0; i < captions.length; i++) {
 
-                    if (captions[i]['text'].includes(request.body.word)) {
+                    if (captions[i]['text'].includes(" "+request.body.word.toLowerCase()+" ")) {
 
                         ans.push({
                             'link': `https://youtu.be/${id}?t=${captions[i].start}s`,
@@ -46,6 +53,7 @@ app.post("/", urlencodedParser, function (request, response)
     }
     catch (Error)
     {
+
         response.status(201).json(ans)
     }
 
