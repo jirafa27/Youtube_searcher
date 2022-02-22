@@ -16,6 +16,13 @@ new Vue({
       const {...linkword} = this.form
       const newData = await request('/', 'POST', linkword);
       this.links = newData;
+      if (newData.length==0)
+      {
+          document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
+      }
+      else {
+          document.getElementById('nothing').innerHTML = ''
+      }
     },
 
     async goTo(href)
