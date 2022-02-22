@@ -33,29 +33,41 @@ app.post("/", urlencodedParser, function (request, response)
         {
                 id = request.body.href.split('/')[request.body.href.split('/').length-1]
         }
-        getSubtitles({videoID: id, lang: 'ru'}).then(function (captions) {
-                for (let i = 0; i < captions.length; i++) {
+        const rusLower = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+        const enLower = 'abcdefghijklmnopqrstuvwxyz'
+        lang = ''
+        if (rusLower.includes(request.body.word.toLowerCase()[0]))
+        {
+            lang = 'ru'
 
-                    if (captions[i]['text'].includes(" "+request.body.word.toLowerCase()+" ")) {
+        }
+        else if (enLower.includes(request.body.word.toLowerCase()[0]))
+        {
+            lang = 'en'
+        }
+        getSubtitles({videoID: id, lang: lang}).then(function (captions) {
+                    for (let i = 0; i < captions.length; i++) {
 
-                        ans.push({
-                            'link': `https://youtu.be/${id}?t=${captions[i].start}s`,
-                            'time': captions[i].start,
-                            'text': captions[i].text
-                        })
+                        if (captions[i]['text'].includes(request.body.word.toLowerCase())) {
+                            ans.push({
+                                'link': `https://youtu.be/${id}?t=${captions[i].start}s`,
+                                'time': captions[i].start,
+                                'text': captions[i].text
+                            })
+                        }
                     }
-
-                }
                 response.status(201).json(ans)
-
+                }, function (reason)
+            {
+                response.status(201).json(ans)
             }
-        )
+            )
     }
-    catch (Error)
+    catch (err)
     {
-
         response.status(201).json(ans)
     }
+
 
 });
 app.listen(port, ()=>console.log('Server has been started on port '+port))

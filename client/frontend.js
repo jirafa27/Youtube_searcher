@@ -16,7 +16,6 @@ new Vue({
       const {...linkword} = this.form
       const newData = await request('/', 'POST', linkword);
       this.links = newData;
-      this.form.href = this.form.word = ''
     },
 
     async goTo(href)
