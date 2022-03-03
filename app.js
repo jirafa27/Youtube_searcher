@@ -19,6 +19,8 @@ var url;
 var id;
 
 
+
+
 app.post("/", urlencodedParser, function (request, response)
 {
     ans=[]
@@ -47,14 +49,11 @@ app.post("/", urlencodedParser, function (request, response)
         }
         getSubtitles({videoID: id, lang: lang}).then(function (captions) {
                     for (let i = 0; i < captions.length; i++) {
-
-                        if (captions[i]['text'].includes(request.body.word.toLowerCase())) {
                             ans.push({
                                 'link': `https://youtu.be/${id}?t=${captions[i].start}s`,
                                 'time': captions[i].start,
                                 'text': captions[i].text
                             })
-                        }
                     }
                 response.status(201).json(ans)
                 }, function (reason)
@@ -62,13 +61,12 @@ app.post("/", urlencodedParser, function (request, response)
                 response.status(201).json(ans)
             }
             )
+        console.log('Дернули апи')
     }
     catch (err)
     {
         response.status(201).json(ans)
     }
-
-
 });
 app.listen(port, ()=>console.log('Server has been started on port '+port))
 

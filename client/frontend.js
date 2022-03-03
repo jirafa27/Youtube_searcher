@@ -8,27 +8,65 @@ new Vue({
         href: '',
         word: ''
       },
-      links: []
+      links: [],
+      all_subs:[],
+
     }
   },
   methods: {
-    async searchLinks() {
+    async getAllSubs() {
       const {...linkword} = this.form
-      const newData = await request('/', 'POST', linkword);
-      this.links = newData;
-      if (newData.length==0)
-      {
-          document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
-      }
-      else {
-          document.getElementById('nothing').innerHTML = ''
-      }
+      this.all_subs = await request('/', 'POST', linkword);
+
     },
+
+   async getFilteredSubs(){
+       this.getAllSubs()
+       this.links = []
+       if (this.form.word!=='') {
+           for (let i = 0; i < this.all_subs.length; i++) {
+               if (this.all_subs[i]['text'].includes(this.form.word.toLowerCase())) {
+                   this.links.push(this.all_subs[i])
+               }
+           }
+       }
+       if (this.links.length===0)
+       {
+           document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
+       }
+       else {
+           document.getElementById('nothing').innerHTML = ''
+       }
+
+   },
 
     async goTo(href)
     {
       window.location.href=href
-    }
+    },
+
+    async filterSubs() {
+
+          if (document.getElementById('word').value.length>=3)
+          {
+              this.links = []
+              for (let i = 0; i < this.all_subs.length; i++) {
+                  if (this.all_subs[i]['text'].includes(this.form.word.toLowerCase())) {
+                      this.links.push(this.all_subs[i])
+                  }
+              }
+          }
+          if (this.links.length===0)
+        {
+            document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
+        }
+        else {
+            document.getElementById('nothing').innerHTML = ''
+        }
+
+      },
+
+
   },
 
 })
@@ -50,3 +88,4 @@ async function request(url, method, data) {
     return await response.json()
 
 }
+
