@@ -55,14 +55,15 @@ new Vue({
                       this.links.push(this.all_subs[i])
                   }
               }
+              if (this.links.length===0)
+              {
+                  document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
+              }
+              else {
+                  document.getElementById('nothing').innerHTML = ''
+              }
           }
-          if (this.links.length===0)
-        {
-            document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
-        }
-        else {
-            document.getElementById('nothing').innerHTML = ''
-        }
+
 
       },
 
