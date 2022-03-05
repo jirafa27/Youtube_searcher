@@ -33,9 +33,7 @@
     <h3 id="nothing"></h3>
     <div class="card mb-3" v-for="d in links">
             <div class="card-body">
-                <h5 class="card-title">{{d.link}}</h5>
                 <p class="card-text">{{d.text}}</p>
-                <p class="card-time">{{d.time}}</p>
                 <button class="btn btn-primary" @click="goTo(d.link)">Перейти</button>
             </div>
         </div>
