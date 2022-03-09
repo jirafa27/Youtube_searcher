@@ -17,26 +17,12 @@ new Vue({
     async getAllSubs() {
       const {...linkword} = this.form
       this.all_subs = await request('/', 'POST', linkword);
-
     },
 
    async getFilteredSubs(){
        await this.getAllSubs()
        this.links = []
-       if (this.form.word!=='') {
-           for (let i = 0; i < this.all_subs.length; i++) {
-               if (this.all_subs[i]['text'].includes(this.form.word.toLowerCase())) {
-                   this.links.push(this.all_subs[i])
-               }
-           }
-       }
-       if (this.links.length===0)
-       {
-           document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
-       }
-       else {
-           document.getElementById('nothing').innerHTML = ''
-       }
+       await this.filterSubs()
 
    },
 
@@ -46,7 +32,6 @@ new Vue({
     },
 
     async filterSubs() {
-
           if (document.getElementById('word').value.length>=3)
           {
               this.links = []
