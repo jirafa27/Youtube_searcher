@@ -21,7 +21,7 @@ new Vue({
     },
 
    async getFilteredSubs(){
-       this.getAllSubs()
+       await this.getAllSubs()
        this.links = []
        if (this.form.word!=='') {
            for (let i = 0; i < this.all_subs.length; i++) {
