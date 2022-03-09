@@ -21,7 +21,7 @@ new Vue({
 
    async getFilteredSubs(){
        await this.getAllSubs()
-       this.links = []
+       console.log(this.all_subs)
        await this.filterSubs()
 
    },
