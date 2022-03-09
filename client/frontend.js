@@ -21,8 +21,21 @@ new Vue({
 
    async getFilteredSubs(){
        await this.getAllSubs()
-       console.log("Все субтитры "+ this.all_subs)
-       await this.filterSubs()
+       this.links = []
+       if (this.form.word!=='') {
+           for (let i = 0; i < this.all_subs.length; i++) {
+               if (this.all_subs[i]['text'].includes(this.form.word.toLowerCase())) {
+                   this.links.push(this.all_subs[i])
+               }
+           }
+       }
+       if (this.links.length===0)
+       {
+           document.getElementById('nothing').innerHTML = 'Ничего не найдено:0('
+       }
+       else {
+           document.getElementById('nothing').innerHTML = ''
+       }
 
    },
 
@@ -34,6 +47,7 @@ new Vue({
     async filterSubs() {
           if (document.getElementById('word').value.length>=3)
           {
+              await this.getAllSubs()
               this.links = []
               for (let i = 0; i < this.all_subs.length; i++) {
                   if (this.all_subs[i]['text'].includes(this.form.word.toLowerCase())) {
