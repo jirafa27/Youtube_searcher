@@ -57,7 +57,7 @@ new Vue({
               }
               if (this.links.length===0)
               {
-                  document.getElementById('nothing').innerHTML = 'Ничего не найдено=('
+                  document.getElementById('nothing').innerHTML = 'Ничего не найдено:0('
               }
               else {
                   document.getElementById('nothing').innerHTML = ''
