@@ -21,7 +21,7 @@ new Vue({
 
    async getFilteredSubs(){
        await this.getAllSubs()
-       console.log(this.all_subs)
+       console.log("Все субтитры "+ this.all_subs)
        await this.filterSubs()
 
    },
