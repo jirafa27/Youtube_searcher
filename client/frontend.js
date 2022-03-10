@@ -20,7 +20,9 @@ new Vue({
     },
 
    async getFilteredSubs(){
-       await this.getAllSubs()
+       if (this.all_subs.length===0) {
+           await this.getAllSubs()
+       }
        this.links = []
        if (this.form.word!=='') {
            for (let i = 0; i < this.all_subs.length; i++) {
@@ -41,13 +43,15 @@ new Vue({
 
     async goTo(href)
     {
-      window.location.href=href
+      window.open(href)
     },
 
     async filterSubs() {
           if (document.getElementById('word').value.length>=3)
           {
-              await this.getAllSubs()
+              if (this.all_subs.length===0) {
+                  await this.getAllSubs()
+              }
               this.links = []
               for (let i = 0; i < this.all_subs.length; i++) {
                   if (this.all_subs[i]['text'].includes(this.form.word.toLowerCase())) {
